@@ -49,12 +49,24 @@ table {
     --positive-color: #03ac00;
     --negative-color: #c70000; 
     --logo-font: 'Saira Stencil One', cursive;
+	--font: 'Raleway', sans-serif;
 }
 
 body {
 	line-height: 1;
     background-color: var(--background-color);
+	font-family: var(--font);
 }
+
+button{
+	font-family: var(--font);
+	cursor: pointer;
+}
+
+::placeholder{
+	font-family: var(--font);
+}
+
 `
 
 export default GlobalStyle
