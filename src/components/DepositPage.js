@@ -1,7 +1,6 @@
-export default function App() {
+export default function DepositPage() {
     return (
         <>
-        oi
         </>
     )
 }
