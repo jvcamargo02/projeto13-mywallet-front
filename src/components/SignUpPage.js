@@ -1,11 +1,13 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import styled from "styled-components"
 import { success, advice } from "./assets/toastifyFunctions"
 
 
 export default function SignUpPage() {
+
+    const navigate = useNavigate()
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -19,7 +21,7 @@ export default function SignUpPage() {
             return advice("Those passwords didn't match. Try again.")
         }
 
-        return success("Created user")
+        return (success("Created user"), navigate("/"))
     }
 
     return (
