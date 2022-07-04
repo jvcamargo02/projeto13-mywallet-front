@@ -1,11 +1,11 @@
 import { useState } from "react";
-import PulseLoader from "react-spinners/PulseLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 import styled from "styled-components"
 
 
 export default function Statement() {
 
-    const [content, setContent] = useState(<PulseLoader color="#8C11BE"/>)
+    const [content, setContent] = useState(<ClipLoader color="#8C11BE"/>)
 
     return (
         <Container>

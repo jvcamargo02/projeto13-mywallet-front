@@ -13,15 +13,15 @@ export default function HomePage() {
             <MdOutlineLogout onClick={() => navigate('/')}/>
             <Statement />
             <StatementsButtons>
-                <Link to="/cash-flow">
-                    <MdAddCircleOutline />
-                    <h6>Cash</h6>
-                    <h6>Flow</h6>
-                </Link>
                 <Link to="/cash-inflow">
-                    <MdRemoveCircleOutline />
-                    <h6>Cash</h6>
+                    <MdAddCircleOutline />
+                    <h6>New Cash</h6>
                     <h6>Inflow</h6>
+                </Link>
+                <Link to="/cash-outflow">
+                    <MdRemoveCircleOutline />
+                    <h6>New Cash</h6>
+                    <h6>Outflow</h6>
                 </Link>
             </StatementsButtons>
         </Container>
