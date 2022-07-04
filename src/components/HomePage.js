@@ -2,14 +2,18 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { MdOutlineLogout, MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md'
 import Statement from './StatementBox'
+import { useContext } from 'react'
+import UserContext from '../context/UserContext'
 
 export default function HomePage() {
+
+    const {name} = useContext(UserContext)
 
     const navigate = useNavigate()
 
     return (
         <Container>
-            <span>Hello, Fulano</span>
+            <span>Hello, {name}</span>
             <MdOutlineLogout onClick={() => navigate('/')}/>
             <Statement />
             <StatementsButtons>

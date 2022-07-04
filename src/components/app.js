@@ -11,12 +11,13 @@ import WithdrawPage from './WithdrawPage'
 export default function App() {
 
     const [token, setToken] = useState("")
+    const [name, setName] = useState("")
 
     return (
         <>
             <GlobalStyle />
             <BrowserRouter>
-                <UserContext.Provider value={{ token, setToken }}>
+                <UserContext.Provider value={{ token, setToken, name, setName }}>
                     <Routes>
                         <Route path="/" element={<SignInPage />} />
                         <Route path="/sign-up" element={<SignUpPage />} />

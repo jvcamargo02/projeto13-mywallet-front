@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import axios from "axios"
 import ClipLoader from "react-spinners/ClipLoader";
 import styled from "styled-components"
+import UserContext from "../context/UserContext";
+import { isArray } from "util";
 
 
 export default function Statement() {
 
-    const [content, setContent] = useState(<ClipLoader color="#8C11BE"/>)
+    const {token} = useContext(UserContext)
+    const [content, setContent] = useState(<ClipLoader color="#8C11BE" />)
+
+
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    
+    useEffect(() => {
+        const promisse = axios.get(`http://localhost:5000/home`, config)
+
+        promisse.then((response) => setContent(response.data.transactions))
+    }, [])
 
     return (
         <Container>
-            {content}
+            {isArray(content) ? content.map((teste) => {
+                console.log(teste)
+            })}
         </Container>
     )
 }

@@ -1,18 +1,36 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import UserContext from "../context/UserContext"
+
 
 export default function SignInPage() {
 
     const navigate = useNavigate()
 
+    const {setToken, setName} = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    function success(data) {
+        setToken(data.token)
+        setName(data.name)
+
+        navigate("/home")
+    }
 
     function onSubmit(e) {
         e.preventDefault()
 
-        return(navigate("/home"))
+        console.log("entroui aq")
+
+        const promisse = axios.post("http://localhost:5000/", {
+            email,
+            password
+        })
+
+        promisse.then((response) => success(response.data))
     }
 
     return (

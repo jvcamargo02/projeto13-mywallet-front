@@ -1,4 +1,5 @@
 import { useState } from "react"
+import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import styled from "styled-components"
@@ -21,7 +22,15 @@ export default function SignUpPage() {
             return advice("Those passwords didn't match. Try again.")
         }
 
-        return (success("Created user"), navigate("/"))
+        const promisse = axios.post("http://localhost:5000/sign-up", {
+            name,
+            email,
+            password
+        })
+
+        promisse.then(
+            navigate("/")
+        )
     }
 
     return (

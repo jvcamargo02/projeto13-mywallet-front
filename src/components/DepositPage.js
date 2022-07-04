@@ -1,13 +1,34 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import axios from "axios"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
+import UserContext from "../context/UserContext"
 
 export default function WithdrawPage() {
 
+    const navigate = useNavigate()
+
+    const {token} = useContext(UserContext)
     const [value, setValue] = useState("")
     const [description, setDescription] = useState("")
 
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    }
+
     function onSubmit(e) {
         e.preventDefault()
+
+        const promisse = axios.post("http://localhost:5000/cash-outflow", {
+            value,
+            description
+        }, config )
+
+        promisse.then(
+            navigate("/home")
+        )
     }
 
     return (
