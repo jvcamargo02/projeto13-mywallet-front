@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import axios from "axios"
-import ClipLoader from "react-spinners/ClipLoader"; 
+import ClipLoader from "react-spinners/ClipLoader";
 import styled from "styled-components"
 import UserContext from "../context/UserContext";
 
@@ -17,37 +17,49 @@ export default function Statement() {
     }
 
     useEffect(() => {
+        console.log("vou entrar na promisse")
         const promisse = axios.get(`http://localhost:5000/home`, config)
 
-        promisse.then((response) => success(response.data))
+        promisse.then((response) => setContent(response.data))
     }, [])
 
-    function success(response) {
 
-        console.log(response)
+    function amount() {
+        let amount = 0
 
-        if (response.length === 0) {
-            return setContent([
-                <Statement color="rgba(0,0,0,0.6)">
-                    There are no records of cash inflows or outflows yet.
-                </Statement>
-            ])
-        }
+        content.map(cashFlow =>
 
-        setContent(response)
+            amount = amount + (cashFlow.value)
+
+        )
+
+        return amount
     }
+
+    console.log(content)
+    console.log(content.length)
 
     return (
         <Container>
-            {content.length === 0 ? <ClipLoader color="#8C11BE"/> :
+            {content.length === 0 ?
+
+                <h1>
+                    There are no records of cash inflows or outflows yet.
+                </h1>
+
+                :
+
                 <StatementBox>
-                    {content.map((statement) =>
-                        <Resume color={statement.type === "inflow" ? "green" : "red"}>
-                            <span>04/07 - {statement.description}</span>
-                            <p>{statement.value}</p>
+                    {content.map((statement, index) =>
+                        <Resume key={index} color={statement.type === "inflow" ? "green" : "red"}>
+                            <span>{statement.date}</span>
+                            <span>{statement.description}</span>
+                            <span>{statement.value}</span>
                         </Resume>
                     )
                     }
+                    <p>BALANCE</p>
+                    <p>{amount()}</p>
                 </StatementBox>
             }
         </Container>
@@ -64,18 +76,52 @@ const Container = styled.div`
     height: 68%;
     background-color: #FFF;
     border-radius: 5px;
-    
+    box-sizing: border-box;
+    padding: 15px;
+    position: relative;
+
+    h1{
+        width: 180px;
+        height: 46px;
+        font-size: 20px;
+        text-align: center;
+        color: rgba(0,0,0,0.4);
+    }
 `
 
 const StatementBox = styled.div`
 
     height: 100%;
     width: 100%;
+    position: relative;
+    
+    p{  
+        position: absolute;
+        bottom: 0;
+        font-weight: 700;
+        font-size: 17px;
+    }
+
+    p:last-child{
+        color: ${props => props.children[2].props.children > 0 ? "green" : "red"};
+        right: 0;
+    }
 `
 
 const Resume = styled.div`
 
     span{
-       color: #000
+       color: #000;
+       font-size: 16px;
+    }
+
+    span:nth-child(2n-1){
+        color: rgba(0,0,0,0.6);
+        margin-right: 10px
+    }
+
+    span:nth-child(3n){
+        float: right;
+        color: ${props => props.color}
     }
 `
