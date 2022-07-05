@@ -18,7 +18,7 @@ export default function Statement() {
 
     useEffect(() => {
         console.log("vou entrar na promisse")
-        const promisse = axios.get(`http://localhost:5000/home`, config)
+        const promisse = axios.get(`https://back-mywallet-13.herokuapp.com/home`, config)
 
         promisse.then((response) => setContent(response.data))
     }, [])

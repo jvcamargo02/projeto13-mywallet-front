@@ -21,7 +21,7 @@ export default function WithdrawPage() {
     function onSubmit(e) {
         e.preventDefault()
 
-        const promisse = axios.post("http://localhost:5000/cash-inflow", {
+        const promisse = axios.post("https://back-mywallet-13.herokuapp.com/cash-inflow", {
             value,
             description
         }, config )

@@ -37,7 +37,7 @@ export default function SignUpPage() {
 
         setButtonContent(<PulseLoader color="#FFF"/>)
 
-        const promisse = axios.post("http://localhost:5000/sign-up", {
+        const promisse = axios.post("https://back-mywallet-13.herokuapp.com/sign-up", {
             name,
             email,
             password
