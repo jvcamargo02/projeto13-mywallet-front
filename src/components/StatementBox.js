@@ -50,6 +50,7 @@ export default function Statement() {
                 :
 
                 <StatementBox>
+                    <main>
                     {content.map((statement, index) =>
                         <Resume key={index} color={statement.type === "inflow" ? "green" : "red"}>
                             <span>{statement.date}</span>
@@ -57,7 +58,8 @@ export default function Statement() {
                             <span>{statement.value}</span>
                         </Resume>
                     )
-                    }
+                        }
+                    </main>
                     <p>BALANCE</p>
                     <p>{amount()}</p>
                 </StatementBox>
@@ -94,6 +96,8 @@ const StatementBox = styled.div`
     height: 100%;
     width: 100%;
     position: relative;
+    box-sizing: border-box;
+    
     
     p{  
         position: absolute;
@@ -105,6 +109,11 @@ const StatementBox = styled.div`
     p:last-child{
         color: ${props => props.children[2].props.children > 0 ? "green" : "red"};
         right: 0;
+    }
+
+    main{
+        height: 95%;
+        overflow-y: auto;
     }
 `
 
