@@ -3,7 +3,8 @@ import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import styled from "styled-components"
-import { success, advice } from "./assets/toastifyFunctions"
+import { advice } from "./assets/toastifyFunctions"
+import PulseLoader from "react-spinners/PulseLoader";
 
 
 export default function SignUpPage() {
@@ -14,6 +15,18 @@ export default function SignUpPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirm, setPasswordConfirm] = useState("")
+    const [buttonContent, setButtonContent] = useState("Create Account")
+
+
+    function error(e) {
+        advice(e.response.data)
+        setPassword('')
+        setEmail("")
+        setPasswordConfirm("")
+        setName("")
+        setButtonContent("Create Account")
+    }
+
 
     function onSubmit(e) {
         e.preventDefault()
@@ -22,15 +35,16 @@ export default function SignUpPage() {
             return advice("Those passwords didn't match. Try again.")
         }
 
+        setButtonContent(<PulseLoader color="#FFF"/>)
+
         const promisse = axios.post("http://localhost:5000/sign-up", {
             name,
             email,
             password
         })
 
-        promisse.then(
-            navigate("/")
-        )
+        promisse.then(() => navigate('/'))
+        promisse.catch((e) => error(e))
     }
 
     return (
@@ -65,7 +79,7 @@ export default function SignUpPage() {
                     onChange={(e) => setPasswordConfirm(e.target.value)}
                     value={passwordConfirm} />
                 <button type="submit">
-                    Create Account
+                    {buttonContent}
                 </button>
             </form>
             <Link to="/">

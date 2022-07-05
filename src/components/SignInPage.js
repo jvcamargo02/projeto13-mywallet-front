@@ -2,7 +2,11 @@ import { useState, useContext } from "react"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import PulseLoader from "react-spinners/PulseLoader";
+import { ToastContainer } from "react-toastify"
+import { advice } from "./assets/toastifyFunctions";
 import UserContext from "../context/UserContext"
+
 
 
 export default function SignInPage() {
@@ -12,6 +16,7 @@ export default function SignInPage() {
     const {setToken, setName} = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [buttonContent, setButtonContent] = useState("Log In")
 
     function success(data) {
         setToken(data.token)
@@ -20,10 +25,15 @@ export default function SignInPage() {
         navigate("/home")
     }
 
+    function error(e) {
+        advice(e.response.data)
+        setButtonContent("Log In")
+    }
+
     function onSubmit(e) {
         e.preventDefault()
 
-        console.log("entroui aq")
+        setButtonContent(<PulseLoader color="#FFF"/>)
 
         const promisse = axios.post("http://localhost:5000/", {
             email,
@@ -31,6 +41,7 @@ export default function SignInPage() {
         })
 
         promisse.then((response) => success(response.data))
+        promisse.catch((e) => error(e))
     }
 
     return (
@@ -52,12 +63,13 @@ export default function SignInPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     value={password} />
                 <button type="submit">
-                    Log In
+                    {buttonContent}
                 </button>
             </form>
             <Link to="/sign-up">
                 <h6>Don't have an account? Sign up</h6>
             </Link>
+            <ToastContainer />
         </Container>
     )
 }

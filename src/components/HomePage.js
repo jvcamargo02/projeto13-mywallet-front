@@ -7,14 +7,16 @@ import UserContext from '../context/UserContext'
 
 export default function HomePage() {
 
-    const {name} = useContext(UserContext)
+    const { name } = useContext(UserContext)
 
     const navigate = useNavigate()
 
     return (
         <Container>
-            <span>Hello, {name}</span>
-            <MdOutlineLogout onClick={() => navigate('/')}/>
+            <Header>
+                <span>Hello, {name}</span>
+                <MdOutlineLogout onClick={() => navigate('/')} />
+            </Header>
             <Statement />
             <StatementsButtons>
                 <Link to="/cash-inflow">
@@ -42,18 +44,8 @@ const Container = styled.div`
     padding: 25px;
     margin-left: auto; margin-right: auto;
 
-    span{
-        width: fit-content;
-        color: #FFF;
-        font-size: 25px;
-        font-weight: 700;
-    }
-
-    svg{
-        color: #FFF;
-        float: right;
-        font-size: 25px;
-        cursor: pointer;
+    div{
+        
     }
 `
 
@@ -87,6 +79,24 @@ const StatementsButtons = styled.div`
             position: absolute;
             top: 10px;
         }
+    }
+
+`
+
+const Header = styled.div`
+
+    span{
+        width: fit-content;
+        color: #FFF;
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    svg{
+        color: #FFF;
+        float: right;
+        font-size: 25px;
+        cursor: pointer;
     }
 
 `
